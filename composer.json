@@ -1,0 +1,27 @@
+{
+    "name": "omaraligit/notoro",
+    "description": "notoro is a php framework made easy for new comers to php and frameworks in general this project is open source and not production ready",
+    "type": "project",
+    "authors": [
+        {
+            "name": "omar ali",
+            "email": "omarali0601520286@gmail.com"
+        }
+    ],
+    "autoload":{
+      "psr-4":{
+          "Notoro\\":"src",
+          "NotoroTest\\":"tests"
+      }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3@dev",
+        "symfony/var-dumper": "^4.3@dev",
+        "http-interop/response-sender": "dev-master",
+        "php-di/php-di": "dev-master"
+    },
+    "scripts":{
+        "server":"php -S localhost:8000 -t=public"
+    }
+}
