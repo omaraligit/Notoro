@@ -16,10 +16,7 @@ class RoutingTest extends TestCase
 {
 
     public function testAddingGetRoute(){
-        $router = new Router();
-        Route::get('/test',function (){
 
-        });
     }
 
 }

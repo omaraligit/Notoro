@@ -30,10 +30,12 @@ class App
 
     public function run(ServerRequestInterface $request)
     {
-        $this->router->match($request);
-        $response = new Response();
-        $response->getBody()->write("app is runing");
-        return $response;
+        if(substr($request->getUri()->getPath(),-1) == "/"){
+            return (new Response())
+                ->withStatus(301)
+                ->withHeader('Location',substr($request->getUri()->getPath(),0,-1));
+        }
+        return $this->router->match($request);
     }
 
 }

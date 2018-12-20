@@ -20,7 +20,7 @@ $container = $builder->build();
 $app = new App($container);
 
 // TODO :: add routing system
-// TODO :: add templating ssystem
+// TODO :: add templating system
 // TODO :: add middleware system
 // TODO :: add database connection
 
