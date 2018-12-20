@@ -13,6 +13,10 @@ use GuzzleHttp\Psr7\Request;
 
 class DefaultController extends Controller{
 
+    public function index(){
+        return ["omar"=>"ali"];
+    }
+
     public function test(Request $request){
         return "
 

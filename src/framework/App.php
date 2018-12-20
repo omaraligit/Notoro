@@ -30,7 +30,7 @@ class App
 
     public function run(ServerRequestInterface $request)
     {
-        if(substr($request->getUri()->getPath(),-1) == "/"){
+        if(\strlen($request->getUri()->getPath()) > 1 && substr($request->getUri()->getPath(),-1) == "/"){
             return (new Response())
                 ->withStatus(301)
                 ->withHeader('Location',substr($request->getUri()->getPath(),0,-1));

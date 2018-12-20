@@ -43,7 +43,7 @@ class Route {
 
             preg_match("/\{([A-Za-z0-9\-_])+\}/", $this->_path, $chars,PREG_OFFSET_CAPTURE);
 
-            dd($chars,$request->getUri()->getPath(),$this->path);
+            // dd($chars,$request->getUri()->getPath(),$this->path);
             $response  = new Response(200);
 
             if ($this->action instanceof \Closure){

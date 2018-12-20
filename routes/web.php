@@ -10,7 +10,7 @@ class Omar{
 
 Router::get('/','DefaultController@index');
 Router::get('/home',function (ServerRequestInterface $request){
-    dd($request);
+    return "<h1>home</h1>";
 });
 Router::get('/test','DefaultController@test');
 Router::post('/test','DefaultController@PostTest');
