@@ -33,22 +33,24 @@ class Route {
 
     public function isMatching(ServerRequestInterface $request)
     {
-        $this->path = preg_replace("/\{([A-Za-z0-9\-_])+\}/","([A-Za-z0-9\-_])+",$this->path);
+        $this->path = preg_replace("/\{([A-Za-z0-9\-_])+\}/","([A-Za-z0-9\-_]+)",$this->path);
         $this->path = str_replace("/","\/",$this->path);
+       
+        if(strtoupper($request->getMethod()) == $this->method && preg_match("@^".$this->path."/?$@D",$request->getUri()->getPath(),$args)){
+            
 
-        if(strtoupper($request->getMethod()) == $this->method && preg_match("/^".$this->path."$/",$request->getUri()->getPath())){
+            preg_match_all("/\{([A-Za-z0-9\-_]+)\}/",$this->_path,$keys);
+            // TODO $get params deal with
+            $params = [];
+            foreach ($keys[1] as $index => $key) {
+                $params[$key] = $args[$index+1];
+            }
 
-            // TODO FIGUR OUT HOW TO FIND THE KEY AND GIVE IT THE VALUE
-
-
-            preg_match("/\{([A-Za-z0-9\-_])+\}/", $this->_path, $chars,PREG_OFFSET_CAPTURE);
-
-            // dd($chars,$request->getUri()->getPath(),$this->path);
             $response  = new Response(200);
 
             if ($this->action instanceof \Closure){
-
-                $functionResponse = call_user_func($this->action,$request);
+    
+                $functionResponse = call_user_func($this->action,$request,$params);
 
 
             }else{
@@ -64,7 +66,7 @@ class Route {
                 $controllerInstance = new $actionClass();
                 $methode            = $action[1];
 
-                $functionResponse = $controllerInstance->$methode($request);
+                $functionResponse = $controllerInstance->$methode($request,$params);
             }
 
             if ($this->isJSON($functionResponse)){
@@ -88,7 +90,7 @@ class Route {
 
             } else{
 
-                $response->getBody()->write($this->action);
+                $response->getBody()->write("action methode is not returning anything");
 
             }
 

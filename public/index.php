@@ -2,17 +2,17 @@
 
 require_once '../vendor/autoload.php';
 
-use GuzzleHttp\Psr7\ServerRequest;
 use Notoro\framework\App;
 use function Http\Response\send;
-
+use GuzzleHttp\Psr7\ServerRequest;
+use Notoro\framework\router\Router;
 /**
  * new app
  */
 $container = new DI\Container();
 $builder = new DI\ContainerBuilder();
 $builder->addDefinitions([
-    'Router'=>new \Notoro\framework\router\Router()
+    'Router'=>new Router()
 ]);
 $container = $builder->build();
 

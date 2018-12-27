@@ -33,5 +33,10 @@ class DefaultController extends Controller{
         dd($request);
     }
 
+    public function home($request,$params)
+    {
+        return $this->view->render('index',$params);
+    }
+
 
 }

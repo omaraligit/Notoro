@@ -9,11 +9,14 @@
         }
     ],
     "autoload":{
-      "psr-4":{
-          "App\\":"app",
-          "Notoro\\":"src",
-          "NotoroTest\\":"tests"
-      }
+        "psr-4":{
+            "App\\":"app",
+            "Notoro\\":"src",
+            "NotoroTest\\":"tests"
+        },
+        "files":[
+            "src/framework/helpers/helpers.php"
+        ]
     },
     "minimum-stability": "dev",
     "require": {
