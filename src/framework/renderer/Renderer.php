@@ -12,6 +12,7 @@ class Renderer
 
     public function render(string $view,array $params=[]){
         ob_start();
+        $params['renderer'] = \getContainer()->get('Renderer');
         extract($params);
         $view = str_replace('.',DIRECTORY_SEPARATOR,$view);
         $path = $this->viewsPath.'/'.$view.'.view.php';

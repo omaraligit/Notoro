@@ -13,18 +13,20 @@ use GuzzleHttp\Psr7\Request;
 
 class DefaultController extends Controller{
 
-    public function index(){
-        return ["omar"=>"ali"];
+    public function index(Request $request){
+
+//        return ["name"=>"omar","id"=>15];
+        return $this->view->render('index',["name"=>"omar","id"=>15]);
     }
 
     public function test(Request $request){
         return "
 
             <form method='post' enctype='multipart/form-data'>
-            <input type='text' name='foo'><br>
-            <input type='file' name='file'><br>
-            <input type='submit' value='GO'> 
-</form>
+                <input type='text' name='foo'><br>
+                <input type='file' name='file'><br>
+                <input type='submit' value='GO'> 
+            </form>
 
         ";
     }

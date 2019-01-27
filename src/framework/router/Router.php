@@ -3,6 +3,7 @@
 namespace Notoro\framework\router;
 
 use GuzzleHttp\Psr7\Response;
+use Notoro\framework\controller\ErrorsController;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router {
@@ -42,7 +43,20 @@ class Router {
         }
         if(is_null($response)){
             $response = new Response(404);
-            $response->getBody()->write("404 route not found");
+            $notFoundController = ErrorsController::class;
+            /**
+             * separating the class from the method
+             */
+            $action = 'PageNotFound';
+            $actionClass =$notFoundController;
+            /**
+             * instantiating the controller class
+             */
+            $controllerInstance = new $actionClass();
+            $method             = $action;
+
+            $notFoundPage = $controllerInstance->$method($request);
+            $response->getBody()->write($notFoundPage);
             return $response;
         }
 

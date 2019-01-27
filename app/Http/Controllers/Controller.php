@@ -8,18 +8,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use DI\Container;
 use Notoro\framework\renderer\Renderer;
 
 class Controller {
 
     public static $DEFAULT_CONTROLLER_NAMESPACE = "App\Http\Controllers";
     /**
+     * @var Container
+     */
+    public $container;
+    /**
      * @var Renderer
      */
     public $view;
     public function __construct()
     {
-        $this->view = new Renderer(views_folder());
+        $this->container = getContainer();
+        $this->view = $this->container->get('Renderer');
     }
 }

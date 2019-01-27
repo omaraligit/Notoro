@@ -56,7 +56,7 @@ class Route {
             }else{
                 $defaultNamespace = Controller::$DEFAULT_CONTROLLER_NAMESPACE;
                 /**
-                 * separaating the class from the methode
+                 * separating the class from the method
                  */
                 $action = explode("@",$this->action);
                 $actionClass =$defaultNamespace."\\".$action[0];
@@ -64,9 +64,9 @@ class Route {
                  * instantiating the controller class
                  */
                 $controllerInstance = new $actionClass();
-                $methode            = $action[1];
+                $method             = $action[1];
 
-                $functionResponse = $controllerInstance->$methode($request,$params);
+                $functionResponse = $controllerInstance->$method($request,$params);
             }
 
             if ($this->isJSON($functionResponse)){
