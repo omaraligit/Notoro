@@ -2,20 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: omar
- * Date: 1/26/2019
- * Time: 9:12 PM
+ * Date: 2/5/2019
+ * Time: 8:24 PM
  */
 
-namespace App\Http\middleware;
+namespace Notoro\framework\middlewares;
 
-
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AppMiddleware implements MiddlewareInterface
+class CsrfMiddleware implements MiddlewareInterface
 {
 
     /**
@@ -27,6 +25,6 @@ class AppMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return $handler->handle($request);
+        // TODO: Implement Csrf test.
     }
 }

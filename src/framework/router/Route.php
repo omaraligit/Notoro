@@ -40,7 +40,7 @@ class Route {
             
 
             preg_match_all("/\{([A-Za-z0-9\-_]+)\}/",$this->_path,$keys);
-            // TODO $get params deal with
+
             $params = [];
             foreach ($keys[1] as $index => $key) {
                 $params[$key] = $args[$index+1];

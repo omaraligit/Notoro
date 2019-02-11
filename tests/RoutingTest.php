@@ -16,7 +16,7 @@ class RoutingTest extends TestCase
 {
 
     public function testAddingGetRoute(){
-
+        $this->assertEquals(1,1);
     }
 
 }

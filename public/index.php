@@ -20,16 +20,14 @@ $container = $builder->build();
 
 $app = new App($container);
 
-// TODO :: add routing system
-// TODO :: add templating system
-// TODO :: add middleware system
-// TODO :: add database connection
+// TODO :: change app to service provider
+// TODO :: implement routing name helper
+// TODO :: work on the rendring system
+// TODO :: add test to test the framework
+// TODO :: make Config interface for config access / register app's moduls config locations
 
-/**
- * sending the response to client
- */
-$app->pipe(new \App\Http\middleware\AppMiddleware());
-$app->pipe(new \Middlewares\Whoops());
-$app->pipe(new \App\Http\middleware\ClientIp());
+// piping middlewares
+$app->pipe(new \App\Http\middlewares\ClientIpMiddleware());
+// sending the response to client
 $response = $app->handle(ServerRequest::fromGlobals());
 send($response);

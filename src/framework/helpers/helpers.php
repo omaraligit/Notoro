@@ -19,6 +19,10 @@ function routes_folder(){
     return base_folder().'/routes';
 }
 
+function config_folder(){
+    return base_folder().'/config';
+}
+
 function e($param){
     echo $param;
 }

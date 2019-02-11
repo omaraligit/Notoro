@@ -9,36 +9,13 @@
 namespace App\Http\Controllers;
 
 
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\ServerRequest;
 
 class DefaultController extends Controller{
 
-    public function index(Request $request){
 
-//        return ["name"=>"omar","id"=>15];
+    public function index(ServerRequest $request){
         return $this->view->render('index',["name"=>"omar","id"=>15]);
     }
-
-    public function test(Request $request){
-        return "
-
-            <form method='post' enctype='multipart/form-data'>
-                <input type='text' name='foo'><br>
-                <input type='file' name='file'><br>
-                <input type='submit' value='GO'> 
-            </form>
-
-        ";
-    }
-
-    public function PostTest(Request $request){
-        dd($request);
-    }
-
-    public function home($request,$params)
-    {
-        return $this->view->render('index',$params);
-    }
-
 
 }
