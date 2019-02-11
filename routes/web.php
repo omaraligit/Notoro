@@ -1,12 +1,11 @@
 <?php
 
-use GuzzleHttp\Psr7\Response;
 use Notoro\framework\router\Router;
 use Psr\Http\Message\ServerRequestInterface;
 
 Router::get('/', 'DefaultController@index');
 Router::get('/home', function (ServerRequestInterface $request) {
-    return "<h1>home</h1>";
+    return '<h1>home</h1>';
 });
 Router::get('/test', 'DefaultController@test');
 Router::post('/test', 'DefaultController@PostTest');

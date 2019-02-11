@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: omar
  * Date: 1/27/2019
- * Time: 8:58 PM
+ * Time: 8:58 PM.
  */
 
 namespace App\Http\middlewares;
@@ -31,8 +31,14 @@ class ClientIpMiddleware implements MiddlewareInterface
      * @var array The trusted proxy ips
      */
     private $proxyIps = [];
+
     /**
      * Configure the proxy.
+     *
+     * @param array $ips
+     * @param array $headers
+     *
+     * @return ClientIpMiddleware
      */
     public function proxy(
         array $ips = [],
@@ -47,35 +53,58 @@ class ClientIpMiddleware implements MiddlewareInterface
     ): self {
         $this->proxyIps = $ips;
         $this->proxyHeaders = $headers;
+
         return $this;
     }
+
     /**
      * To get the ip from a remote service.
      * Useful for testing purposes on localhost.
+     *
+     * @param bool $remote
+     *
+     * @return ClientIpMiddleware
      */
     public function remote(bool $remote = true): self
     {
         $this->remote = $remote;
+
         return $this;
     }
+
     /**
      * Set the attribute name to store client's IP address.
+     *
+     * @param string $attribute
+     *
+     * @return ClientIpMiddleware
      */
     public function attribute(string $attribute): self
     {
         $this->attribute = $attribute;
+
         return $this;
     }
+
     /**
      * Process a server request and return a response.
+     *
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
+     *
+     * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $ip = $this->getIp($request);
+
         return $handler->handle($request->withAttribute($this->attribute, $ip));
     }
+
     /**
      * Detect and return the ip.
+     *
+     * @param ServerRequestInterface $request
      *
      * @return string|null
      */
@@ -97,12 +126,15 @@ class ClientIpMiddleware implements MiddlewareInterface
             // Found IP address via proxy-defined headers.
             return $proxiedIp;
         }
+
         return $localIp;
     }
+
     /**
-     * checks if the given ip address is in the list of proxied ips provided
+     * checks if the given ip address is in the list of proxied ips provided.
      *
-     * @param  string $ip
+     * @param string $ip
+     *
      * @return bool
      */
     private function isInProxiedIps(string $ip): bool
@@ -112,19 +144,23 @@ class ClientIpMiddleware implements MiddlewareInterface
                 return true;
             }
         }
+
         return false;
     }
+
     private static function isInCIDR(string $ip, string $cidr): bool
     {
         $tokens = explode('/', $cidr);
-        if (count($tokens) !== 2 || !self::isValid($ip) || !self::isValid($tokens[0]) || !is_numeric($tokens[1])) {
+        if (2 !== \count($tokens) || !self::isValid($ip) || !self::isValid($tokens[0]) || !is_numeric($tokens[1])) {
             return false;
         }
         $cidr_base = ip2long($tokens[0]);
         $ip_long = ip2long($ip);
-        $mask = (0xffffffff << intval($tokens[1])) & 0xffffffff;
+        $mask = (0xffffffff << (int) ($tokens[1])) & 0xffffffff;
+
         return ($cidr_base & $mask) === ($ip_long & $mask);
     }
+
     /**
      * Returns the IP address from remote service.
      *
@@ -139,8 +175,11 @@ class ClientIpMiddleware implements MiddlewareInterface
             }
         }
     }
+
     /**
      * Returns the first valid proxied IP found.
+     *
+     * @param ServerRequestInterface $request
      *
      * @return string|null
      */
@@ -148,19 +187,22 @@ class ClientIpMiddleware implements MiddlewareInterface
     {
         foreach ($this->proxyHeaders as $name) {
             if ($request->hasHeader($name)) {
-                if (substr($name, -9) === 'Forwarded') {
+                if ('Forwarded' === mb_substr($name, -9)) {
                     $ip = $this->getForwardedHeaderIp($request->getHeaderLine($name));
                 } else {
                     $ip = $this->getHeaderIp($request->getHeaderLine($name));
                 }
-                if ($ip !== null) {
+                if (null !== $ip) {
                     return $ip;
                 }
             }
         }
     }
+
     /**
      * Returns the remote address of the request, if valid.
+     *
+     * @param ServerRequestInterface $request
      *
      * @return string|null
      */
@@ -171,27 +213,33 @@ class ClientIpMiddleware implements MiddlewareInterface
             return $server['REMOTE_ADDR'];
         }
     }
+
     /**
      * Returns the first valid ip found in the Forwarded or X-Forwarded header.
+     *
+     * @param string $header
      *
      * @return string|null
      */
     private function getForwardedHeaderIp(string $header)
     {
-        foreach (array_reverse(array_map('trim', explode(',', strtolower($header)))) as $values) {
+        foreach (array_reverse(array_map('trim', explode(',', mb_strtolower($header)))) as $values) {
             foreach (array_reverse(array_map('trim', explode(';', $values))) as $directive) {
-                if (strpos($directive, 'for=') !== 0) {
+                if (0 !== mb_strpos($directive, 'for=')) {
                     continue;
                 }
-                $ip = trim(substr($directive, 4));
+                $ip = trim(mb_substr($directive, 4));
                 if (self::isValid($ip) && !$this->isInProxiedIps($ip)) {
                     return $ip;
                 }
             }
         }
     }
+
     /**
      * Returns the first valid ip found in the header.
+     *
+     * @param string $header
      *
      * @return string|null
      */
@@ -203,11 +251,16 @@ class ClientIpMiddleware implements MiddlewareInterface
             }
         }
     }
+
     /**
      * Check that a given string is a valid IP address.
+     *
+     * @param string $ip
+     *
+     * @return bool
      */
     private static function isValid(string $ip): bool
     {
-        return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6) !== false;
+        return false !== filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6);
     }
 }

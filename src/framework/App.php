@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: omar
  * Date: 12/14/2018
- * Time: 11:56 PM
+ * Time: 11:56 PM.
  */
 
 namespace Notoro\framework;
@@ -37,6 +37,7 @@ class App implements RequestHandlerInterface
     public function run(ServerRequestInterface $request)
     {
         $this->request = $request;
+
         return (new Router())->match($request);
     }
 
@@ -60,12 +61,13 @@ class App implements RequestHandlerInterface
         if (null === $middleware) {
             return $this->run($request);
         }
+
         return $middleware->process($request, $this);
     }
 
     private function registerProviders()
     {
-        $serviceProviders = require_once config_folder().'/app.php';
+        $serviceProviders = require_once config_folder() . '/app.php';
         foreach ($serviceProviders as $serviceProvider) {
             (new $serviceProvider($this))->register();
         }

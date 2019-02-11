@@ -1,9 +1,8 @@
 <?php
 
-const ROOT_PATH=__DIR__.'/../../..';
+const ROOT_PATH = __DIR__ . '/../../..';
 
 // TODO make a class to manage .env files
-
 
 function base_folder()
 {
@@ -12,17 +11,17 @@ function base_folder()
 
 function views_folder()
 {
-    return base_folder().'/resources/views';
+    return base_folder() . '/resources/views';
 }
 
 function routes_folder()
 {
-    return base_folder().'/routes';
+    return base_folder() . '/routes';
 }
 
 function config_folder()
 {
-    return base_folder().'/config';
+    return base_folder() . '/config';
 }
 
 function e($param)
@@ -33,5 +32,6 @@ function e($param)
 function getContainer()
 {
     global $container;
+
     return $container;
 }

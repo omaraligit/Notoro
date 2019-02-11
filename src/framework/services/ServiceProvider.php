@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: omar
  * Date: 2/9/2019
- * Time: 12:17 AM
+ * Time: 12:17 AM.
  */
 
 namespace Notoro\framework\services;
@@ -15,6 +15,7 @@ class ServiceProvider
 {
     /**
      * ServiceProvider constructor.
+     *
      * @param App $app
      */
     public function __construct(App $app)

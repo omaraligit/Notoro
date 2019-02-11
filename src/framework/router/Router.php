@@ -8,12 +8,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
-    public $i=10;
+    public $i = 10;
     public static $routes = [];
 
-
     /**
-     * @param string $path
+     * @param string          $path
      * @param string|callable $action
      */
     public static function get(string $path, $action)
@@ -22,7 +21,7 @@ class Router
     }
 
     /**
-     * @param string $path
+     * @param string          $path
      * @param string|callable $action
      */
     public static function post(string $path, $action)
@@ -32,34 +31,35 @@ class Router
 
     /**
      * @param ServerRequestInterface $request
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function match(ServerRequestInterface $request)
     {
-
         /** @var Route $route */
         foreach (self::$routes as $route) {
             $response = $route->isMatching($request);
-            if (!is_null($response)) {
+            if (null !== $response) {
                 return $response;
             }
         }
-        if (is_null($response)) {
+        if (null === $response) {
             $response = new Response(404);
             $notFoundController = ErrorsController::class;
             /**
-             * separating the class from the method
+             * separating the class from the method.
              */
             $action = 'PageNotFound';
-            $actionClass =$notFoundController;
+            $actionClass = $notFoundController;
             /**
-             * instantiating the controller class
+             * instantiating the controller class.
              */
             $controllerInstance = new $actionClass();
-            $method             = $action;
+            $method = $action;
 
             $notFoundPage = $controllerInstance->$method($request);
             $response->getBody()->write($notFoundPage);
+
             return $response;
         }
     }
