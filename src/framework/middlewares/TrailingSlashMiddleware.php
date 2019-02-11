@@ -17,11 +17,12 @@ class TrailingSlashMiddleware implements MiddlewareInterface
      * If unable to produce the response itself, it may delegate to the provided
      * request handler to do so.
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface{
-        if(\strlen($request->getUri()->getPath()) > 1 && substr($request->getUri()->getPath(),-1) == "/"){
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    {
+        if (\strlen($request->getUri()->getPath()) > 1 && substr($request->getUri()->getPath(), -1) == "/") {
             return (new Response())
                 ->withStatus(301)
-                ->withHeader('Location',substr($request->getUri()->getPath(),0,-1));
+                ->withHeader('Location', substr($request->getUri()->getPath(), 0, -1));
         }
         return $handler->handle($request);
     }

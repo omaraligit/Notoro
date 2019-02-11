@@ -8,7 +8,6 @@
 
 namespace Notoro\framework\services;
 
-
 use Psr\Http\Server\MiddlewareInterface;
 
 class AppServiceProvider extends ServiceProvider

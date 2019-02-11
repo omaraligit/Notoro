@@ -8,14 +8,14 @@
 
 namespace App\Http\Controllers;
 
-
 use GuzzleHttp\Psr7\ServerRequest;
 
-class DefaultController extends Controller{
+class DefaultController extends Controller
+{
 
 
-    public function index(ServerRequest $request){
-        return $this->view->render('index',["name"=>"omar","id"=>15]);
+    public function index(ServerRequest $request)
+    {
+        return $this->view->render('index', ["name"=>"omar","id"=>15]);
     }
-
 }

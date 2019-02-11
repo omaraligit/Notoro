@@ -8,7 +8,6 @@
 
 namespace Notoro\framework;
 
-
 use DI\Container;
 use Notoro\framework\router\Router;
 use Psr\Http\Message\ResponseInterface;
@@ -23,7 +22,7 @@ class App implements RequestHandlerInterface
      */
     private $router;
     private $request;
-    public  $container;
+    public $container;
     /**
      * @var MiddlewareInterface[]
      */
@@ -61,14 +60,13 @@ class App implements RequestHandlerInterface
         if (null === $middleware) {
             return $this->run($request);
         }
-        return $middleware->process($request,$this);
-
+        return $middleware->process($request, $this);
     }
 
     private function registerProviders()
     {
         $serviceProviders = require_once config_folder().'/app.php';
-        foreach ($serviceProviders as $serviceProvider){
+        foreach ($serviceProviders as $serviceProvider) {
             (new $serviceProvider($this))->register();
         }
     }

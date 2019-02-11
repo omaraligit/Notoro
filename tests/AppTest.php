@@ -8,7 +8,6 @@
 
 namespace NotoroTest;
 
-
 use GuzzleHttp\Psr7\ServerRequest;
 use Notoro\framework\App;
 use PHPUnit\Framework\TestCase;
@@ -16,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 class AppTest extends TestCase
 {
 
-    public function testAsseertNewAppWorks(){
-        $this->assertEquals(1,1);
+    public function testAsseertNewAppWorks()
+    {
+        $this->assertEquals(1, 1);
     }
-
 }

@@ -1,33 +1,37 @@
-<?php 
+<?php
 
 const ROOT_PATH=__DIR__.'/../../..';
 
-// TODO make into a class
+// TODO make a class to manage .env files
 
-$dotenv = Dotenv\Dotenv::create(ROOT_PATH);
-$dotenv->load();
 
-function base_folder(){
+function base_folder()
+{
     return ROOT_PATH;
 }
 
-function views_folder(){
+function views_folder()
+{
     return base_folder().'/resources/views';
 }
 
-function routes_folder(){
+function routes_folder()
+{
     return base_folder().'/routes';
 }
 
-function config_folder(){
+function config_folder()
+{
     return base_folder().'/config';
 }
 
-function e($param){
+function e($param)
+{
     echo $param;
 }
 
-function getContainer(){
+function getContainer()
+{
     global $container;
     return $container;
 }

@@ -8,12 +8,12 @@
 
 namespace Notoro\framework\controller;
 
-
 use App\Http\Controllers\Controller;
 
 class ErrorsController extends Controller
 {
-    public function PageNotFound(){
+    public function pageNotFound()
+    {
         return $this->view->render('404');
     }
 }

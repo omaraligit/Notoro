@@ -11,7 +11,8 @@ namespace App\Http\Controllers;
 use DI\Container;
 use Notoro\framework\renderer\Renderer;
 
-class Controller {
+class Controller
+{
 
     public static $DEFAULT_CONTROLLER_NAMESPACE = "App\Http\Controllers";
     /**

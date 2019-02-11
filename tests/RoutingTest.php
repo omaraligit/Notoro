@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 class RoutingTest extends TestCase
 {
 
-    public function testAddingGetRoute(){
-        $this->assertEquals(1,1);
+    public function testAddingGetRoute()
+    {
+        $this->assertEquals(1, 1);
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace Notoro\framework\services;
 
-
 use Notoro\framework\App;
 use Psr\Http\Server\MiddlewareInterface;
 
@@ -23,19 +22,23 @@ class ServiceProvider
         $this->app = $app;
     }
 
-    public function register(){}
+    public function register()
+    {
+    }
 
     /**
      * @param MiddlewareInterface[] $middlewares
      */
-    public function pipeMiddlewares(string $middlewaresLocation){
+    public function pipeMiddlewares(string $middlewaresLocation)
+    {
         $middlewares = require_once $middlewaresLocation;
-        foreach ($middlewares as $middleware){
+        foreach ($middlewares as $middleware) {
             $this->app->pipe(new $middleware());
         }
     }
 
-    public function linkRoutes($routesPath){
+    public function linkRoutes($routesPath)
+    {
         require_once $routesPath;
     }
 }

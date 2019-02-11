@@ -6,7 +6,8 @@ use GuzzleHttp\Psr7\Response;
 use Notoro\framework\controller\ErrorsController;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Router {
+class Router
+{
     public $i=10;
     public static $routes = [];
 
@@ -15,7 +16,8 @@ class Router {
      * @param string $path
      * @param string|callable $action
      */
-    static public function get(string $path, $action){
+    public static function get(string $path, $action)
+    {
         self::$routes[] = new Route('GET', $path, $action);
     }
 
@@ -32,16 +34,17 @@ class Router {
      * @param ServerRequestInterface $request
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function match(ServerRequestInterface $request){
+    public function match(ServerRequestInterface $request)
+    {
 
         /** @var Route $route */
-        foreach (self::$routes as $route){
+        foreach (self::$routes as $route) {
             $response = $route->isMatching($request);
-            if(!is_null($response)){
+            if (!is_null($response)) {
                 return $response;
             }
         }
-        if(is_null($response)){
+        if (is_null($response)) {
             $response = new Response(404);
             $notFoundController = ErrorsController::class;
             /**
@@ -59,8 +62,5 @@ class Router {
             $response->getBody()->write($notFoundPage);
             return $response;
         }
-
-
     }
-
 }
