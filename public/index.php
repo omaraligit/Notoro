@@ -26,8 +26,8 @@ $app = new App($container);
 // TODO :: add test to test the framework
 // TODO :: make Config interface for config access / register app's moduls config locations
 
-// piping middlewares
+/** piping middlewares */
 $app->pipe(new \App\Http\middlewares\ClientIpMiddleware());
-// sending the response to client
+/**  sending the response to client */
 $response = $app->handle(ServerRequest::fromGlobals());
 send($response);

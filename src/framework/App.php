@@ -17,20 +17,18 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class App implements RequestHandlerInterface
 {
-    /**
-     * @var Router
-     */
-    private $router;
     private $request;
     public $container;
     /**
      * @var MiddlewareInterface[]
      */
     public $middleware = [];
+    public $serviceProviders;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->serviceProviders = require config_folder() . '/app.php';
         $this->registerProviders();
     }
 
@@ -53,10 +51,13 @@ class App implements RequestHandlerInterface
      * Handles a request and produces a response.
      *
      * May call other collaborating code to generate the response.
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        //$this->run($request);
         $middleware = array_shift($this->middleware);
         if (null === $middleware) {
             return $this->run($request);
@@ -67,8 +68,7 @@ class App implements RequestHandlerInterface
 
     private function registerProviders()
     {
-        $serviceProviders = require_once config_folder() . '/app.php';
-        foreach ($serviceProviders as $serviceProvider) {
+        foreach ($this->serviceProviders as $serviceProvider) {
             (new $serviceProvider($this))->register();
         }
     }
