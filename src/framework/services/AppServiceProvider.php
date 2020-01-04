@@ -12,10 +12,11 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        /* require app's routes */
+        /** registering app's routes */
         $this->linkRoutes(routes_folder() . '/web.php');
 
-        /* getting app middlewares array from config folder */
+        /** registering app middlewares array from config folder */
         $this->pipeMiddlewares(config_folder() . '/middlewares.php');
+
     }
 }
