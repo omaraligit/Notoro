@@ -1,4 +1,5 @@
-<phpunit bootstrap="vendor/autoload.php">
+<phpunit bootstrap="vendor/autoload.php" 
+         colors="true">
     <testsuites>
         <testsuite name="notoro framework">
             <directory>tests</directory>
@@ -13,7 +14,4 @@
             <directory suffix=".php">tests</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
 </phpunit>
