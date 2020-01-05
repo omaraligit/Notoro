@@ -17,6 +17,5 @@ class AppServiceProvider extends ServiceProvider
 
         /** registering app middlewares array from config folder */
         $this->pipeMiddlewares(config_folder() . '/middlewares.php');
-
     }
 }
