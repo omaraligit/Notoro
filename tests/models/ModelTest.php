@@ -2,8 +2,8 @@
 
 namespace NotoroTest\models;
 
-use Notoro\framework\models\Model;
 use PHPUnit\Framework\TestCase;
+use NotoroTest\models\TestModel;
 
 class ModelTest extends TestCase
 {
@@ -12,8 +12,4 @@ class ModelTest extends TestCase
         $model = new TestModel();
         $this->assertSame('testmodel', $model->table);
     }
-}
-
-class TestModel extends Model
-{
 }
